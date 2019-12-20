@@ -1,0 +1,32 @@
+version: '2'
+
+networks: 
+    drupal-network:        
+
+services:
+    drupal:
+        image: drupal:8
+        networks:
+            - drupal-network
+        ports:
+            - '8080:80'
+        volumes: 
+            - drupal-modules:/var/www/html/modules
+            - drupal-profiles:/var/www/html/profiles       
+            - drupal-sites:/var/www/html/sites      
+            - drupal-themes:/var/www/html/themes
+        depends_on:
+            - postgres
+
+    postgres:
+        image: postgres:9.6
+        networks: 
+            - drupal-network
+        environment:
+            - POSTGRES_PASSWORD=pass
+
+volumes:
+    drupal-modules:
+    drupal-profiles:
+    drupal-sites:
+    drupal-themes:
