@@ -17,7 +17,6 @@ services:
             - drupal-profiles:/var/www/html/profiles       
             - drupal-sites:/var/www/html/sites      
             - drupal-themes:/var/www/html/themes
-            - drupal-data:/var/lib/postgresql/data
         depends_on:
             - postgres
 
@@ -27,7 +26,9 @@ services:
             - drupal-network
         environment:
             - POSTGRES_PASSWORD=pass
-
+        volumes:            
+            - drupal-data:/var/lib/postgresql/data
+    
 volumes:
     drupal-modules:
     drupal-profiles:
